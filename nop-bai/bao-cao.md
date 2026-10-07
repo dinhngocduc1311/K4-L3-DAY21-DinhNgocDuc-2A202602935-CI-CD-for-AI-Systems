@@ -49,7 +49,7 @@ EC2 chạy tự động, tái lập được từ một commit dữ liệu.
 
 ## 5. Phần Bonus đã thực hiện
 
-- [ ] Bonus 1 — Workflow đã hỗ trợ DagsHub; còn thiếu secret `DAGSHUB_USER_TOKEN` và run từ xa.
+- [x] Bonus 1 — [DagsHub MLflow](https://dagshub.com/dinhngocduc1311/K4-L3-DAY21-DinhNgocDuc-2A202602935-CI-CD-for-AI-Systems/experiments) có run `d21216b` ghi F1 0,7537.
 - [x] Bonus 2 — Quét 17 ngưỡng 0,10–0,90; F1 tăng từ 0,7354 lên 0,7537 tại ngưỡng 0,30.
 - [x] Bonus 3 — `detail.txt` chứa matrix, precision/recall từng lớp; ưu tiên giảm false negative thu nhập cao.
 - [x] Bonus 4 — Gate so F1 mới/cũ từ S3; chỉ publish khi `new_f1 >= current_f1`.

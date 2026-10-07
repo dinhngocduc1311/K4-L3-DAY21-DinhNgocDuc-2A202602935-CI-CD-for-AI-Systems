@@ -39,7 +39,7 @@ nop-bai/
 
 ## Trạng thái Bonus
 
-- [ ] Bonus 1: workflow đã sẵn sàng cho DagsHub; cần thêm `DAGSHUB_USER_TOKEN` để tạo run từ xa.
+- [x] Bonus 1: [DagsHub mirror](https://dagshub.com/dinhngocduc1311/K4-L3-DAY21-DinhNgocDuc-2A202602935-CI-CD-for-AI-Systems) + GitHub Secret hoạt động; MLflow run `d21216b` hoàn tất.
 - [x] Bonus 2: quét threshold 0,10–0,90 và ghi F1/ngưỡng tối ưu vào report + MLflow.
 - [x] Bonus 3: tạo `detail.txt` với confusion matrix, precision và recall từng lớp.
 - [x] Bonus 4: so F1 với report hiện hành trên S3 trước khi cho phép release.
