@@ -1,97 +1,74 @@
-# Chuỗi Ảnh Chụp Màn Hình Theo Thứ Tự
+# Quy cách năm ảnh nộp bài
 
-Đặt ảnh vào chính thư mục này, **đúng tên file** dưới đây. Bài chấm theo đúng thứ tự
-01 → 05, nên tên file sai hoặc thiếu ảnh sẽ bị tính là thiếu bằng chứng cho hạng mục
-tương ứng.
+Bài được chấm theo thứ tự `01` → `05`. Ảnh phải thấy đúng tài nguyên của repository
+và không chứa credential.
 
----
+## `01-mlflow-ui.png` — MLflow
 
-## `01-mlflow-ui.png` - MLflow UI (Bước 1)
+Chụp danh sách runs tại <http://localhost:5000> sau khi sắp xếp F1 giảm dần. Ảnh cần
+thấy:
 
-Chụp ở màn hình danh sách các lần chạy của MLflow UI (`http://localhost:5000`), sau khi đã
-sắp xếp theo `f1_score` giảm dần.
+- ít nhất ba runs;
+- `f1_score` và `accuracy`;
+- `n_estimators`, `learning_rate`, `max_depth`;
+- URL trình duyệt.
 
-Ảnh phải thấy rõ:
+Tham chiếu: [Bước 1](../../tasks/buoc-1.md).
 
-- Ít nhất **3 lần chạy** với siêu tham số khác nhau.
-- Cột `f1_score` **và** cột `accuracy` của từng lần chạy.
-- Các cột siêu tham số `n_estimators`, `learning_rate`, `max_depth`.
+## `02-actions-buoc-2.png` — Pipeline CI/CD
 
-Cách hiện thêm cột trong MLflow UI: nhấn nút **Columns** ở góc phải bảng và tick các
-metric/param cần hiển thị.
+Chụp trang chi tiết GitHub Actions của Bước 2. Ảnh cần thấy:
 
-Chụp ở bước: [Bước 1, mục 1.8](../../tasks/buoc-1.md).
+- Unit Test, Train, Quality Gate và Release đều xanh;
+- tiêu đề/commit của run;
+- URL repository.
 
----
+Tham chiếu: [Bước 2](../../tasks/buoc-2.md).
 
-## `02-actions-buoc-2.png` - GitHub Actions ở Bước 2
+## `03-actions-buoc-3.png` — Continuous training
 
-Chụp trang chi tiết của một lần chạy workflow trong tab **Actions**.
+Chụp run do commit cập nhật `data/train_batch1.csv.dvc` tự kích hoạt. Ảnh cần thấy:
 
-Ảnh phải thấy rõ:
+- event là **push**, không hiện “Manually triggered”;
+- commit message `data: bổ sung 22361 mẫu dữ liệu mới (train_batch2)`;
+- cả bốn jobs đều xanh;
+- URL repository.
 
-- Cả **bốn jobs**: Unit Test, Train, Quality Gate, Release — tất cả đều màu xanh.
-- Tên/commit message của lần chạy, để xác nhận đây là lần chạy của Bước 2.
+> Ảnh hiện tại là run #5, event `push`, commit `3e7b24b`; cả bốn jobs đều xanh và
+> đáp ứng tiêu chí tự động hóa.
 
-Chụp ở bước: [Bước 2, phần Kết Quả Cần Đạt](../../tasks/buoc-2.md).
+Tham chiếu: [Bước 3](../../tasks/buoc-3.md).
 
----
+## `04-curl-api.png` — FastAPI trên EC2
 
-## `03-actions-buoc-3.png` - GitHub Actions ở Bước 3
-
-Chụp lần chạy workflow được kích hoạt bởi **commit dữ liệu mới** (không phải commit code).
-
-Ảnh phải thấy rõ:
-
-- Commit message của lần chạy đúng là commit cập nhật dữ liệu ở Bước 3.
-- Cả bốn jobs đều hoàn thành thành công.
-
-Đây là bằng chứng cho hạng mục "một commit dữ liệu mới kích hoạt toàn bộ pipeline không
-cần tác động thủ công", nên khác biệt so với ảnh `02` nằm ở commit message.
-
-Chụp ở bước: [Bước 3, phần Kết Quả Cần Đạt](../../tasks/buoc-3.md).
-
----
-
-## `04-curl-api.png` - Kết quả gọi API trên VM
-
-Chụp cửa sổ terminal chứa **cả hai lệnh và cả hai kết quả**:
+Chụp terminal có IP EC2, lệnh và kết quả của cả hai endpoint:
 
 ```bash
-curl http://VM_IP:8080/healthz
-curl -X POST http://VM_IP:8080/score -H "Content-Type: application/json" -d '{...}'
+curl http://SERVER_IP:8080/healthz
+curl -X POST http://SERVER_IP:8080/score \
+  -H "Content-Type: application/json" \
+  -d '{"features":[28,2,14,2,11,0,1,0,0,45]}'
 ```
 
-Ảnh phải thấy rõ:
+Kết quả cần thấy `{"status":"ok"}` và prediction hợp lệ. Không dùng `localhost`
+trong ảnh nộp.
 
-- `/healthz` trả về `{"status": "ok"}`.
-- `/score` trả về nhãn dự đoán hợp lệ (`thu_nhap_cao` hoặc `thu_nhap_thap`).
-- Địa chỉ IP của VM trong lệnh (chứng minh gọi tới VM, không phải `localhost`).
+## `05-cloud-storage.png` — Amazon S3
 
-Nếu hai lệnh chạy ở hai thời điểm khác nhau, được phép nộp thành hai file
-`04a-curl-healthz.png` và `04b-curl-score.png`.
+Chụp AWS Console, thấy rõ:
 
----
+- tên bucket `income-lab-415150458684-us-east-1`;
+- prefix `dvc/` có DVC objects;
+- object `artifacts/current/model.joblib`;
+- URL AWS Console.
 
-## `05-cloud-storage.png` - Cloud Storage Console
+Nếu không thể hiện hai prefix trong cùng một khung hình, dùng thêm
+`05a-storage-dvc.png` và `05b-storage-model.png`, nhưng vẫn giữ ảnh `05` chính.
 
-Chụp giao diện web của cloud storage (GCS / S3 / Azure Blob).
+## Kiểm tra trước khi commit
 
-Ảnh phải thấy rõ:
-
-- Thư mục `dvc/` chứa dữ liệu do DVC đẩy lên.
-- File model tại `artifacts/current/model.joblib`.
-- Tên bucket/container.
-
-Nếu hai đường dẫn nằm ở hai màn hình khác nhau, được phép nộp thành hai file
-`05a-storage-dvc.png` và `05b-storage-model.png`.
-
----
-
-## Ảnh Tùy Chọn (cho phần Bonus)
-
-Nếu bạn làm các thách thức nâng cao, thêm ảnh với tiền tố `06-` trở đi và mô tả ngắn
-trong `bao-cao.md`. Ví dụ:
-
-- `06-dagshub-mlflow.png` — Bonus 1: MLflow trên DagsHub.
-- `07-quality-gate-chan.png` — quality gate chặn Release khi `f1_score < 0.65`.
+- Đúng tên và định dạng PNG.
+- Mỗi ảnh nhỏ hơn 1 MB.
+- Không chứa AWS access key, SSH private key, token hoặc GitHub Secret.
+- Không chỉnh sửa nội dung ảnh để tạo bằng chứng giả; nếu thiếu, chạy lại quy trình và
+  chụp lại.

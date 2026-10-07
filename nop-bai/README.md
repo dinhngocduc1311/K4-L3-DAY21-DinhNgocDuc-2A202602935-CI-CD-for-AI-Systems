@@ -1,14 +1,13 @@
-# Nộp Bài - Day 21: CI/CD cho AI Systems
+# Checklist nộp bài — Day 21
 
-Thư mục này là nơi chứa **bằng chứng nộp bài**. Bạn không cần tạo thêm thư mục nào khác:
-điền vào các file có sẵn và bỏ ảnh chụp màn hình vào đúng tên file đã quy định.
+Thư mục này chứa toàn bộ bằng chứng được chấm trực tiếp trong repository.
 
-```
+```text
 nop-bai/
-├── README.md                  <- file này (checklist)
-├── bao-cao.md                 <- template báo cáo, không quá 1 trang A4
+├── README.md
+├── bao-cao.md
 └── anh-chup-man-hinh/
-    ├── README.md              <- mô tả yêu cầu của từng ảnh
+    ├── README.md
     ├── 01-mlflow-ui.png
     ├── 02-actions-buoc-2.png
     ├── 03-actions-buoc-3.png
@@ -16,58 +15,36 @@ nop-bai/
     └── 05-cloud-storage.png
 ```
 
----
+## Trạng thái
 
-## Checklist Trước Khi Nộp
+- [x] Repository GitHub ở chế độ public.
+- [x] Đủ năm tệp ảnh đúng tên; mỗi ảnh nhỏ hơn 1 MB.
+- [x] `bao-cao.md` có đủ bốn mục và không còn placeholder.
+- [x] Báo cáo dùng số liệu thực tế của Bước 1, 2 và 3.
+- [x] `03-actions-buoc-3.png` là run #5, event **push**, đúng commit dữ liệu và bốn jobs xanh.
+- [x] Commit và push toàn bộ thay đổi cuối cùng; `vlearn.md` được giữ cục bộ và exclude khỏi Git.
+- [x] Đã mở run bằng Chrome headless không đăng nhập, xác nhận repository và ảnh truy cập công khai.
+- [ ] Dán URL repository vào bài nộp trên <https://vlearn.dev>.
 
-Đánh dấu `[x]` khi hoàn thành từng mục:
+## Đối chiếu rubric
 
-- [ ] Repo GitHub ở chế độ **public** và chứa toàn bộ code, cấu hình đã hoàn thiện.
-- [ ] Đủ 5 ảnh trong `anh-chup-man-hinh/`, đúng tên file, đúng thứ tự (xem
-      [yêu cầu chi tiết](anh-chup-man-hinh/README.md)).
-- [ ] `bao-cao.md` đã điền đủ 3 mục bắt buộc và không vượt quá 1 trang A4.
-- [ ] Đã `git push` toàn bộ thư mục `nop-bai/` lên GitHub.
-- [ ] Dán URL repo GitHub vào bài nộp trên **https://vlearn.dev**.
-- [ ] Mở lại URL vừa nộp ở chế độ ẩn danh để chắc chắn repo public và người chấm xem được.
+| Bằng chứng | Nội dung chứng minh | Điểm chính |
+|---|---|---:|
+| `01-mlflow-ui.png` | Ít nhất ba runs, tham số, F1 và accuracy | 20 |
+| `02-actions-buoc-2.png` | Bốn jobs CI/CD hoàn thành | 16 |
+| `03-actions-buoc-3.png` | Commit dữ liệu tự kích hoạt pipeline | 12 |
+| `04-curl-api.png` | FastAPI trên EC2 trả kết quả | 12 |
+| `05-cloud-storage.png` | DVC objects và model artifact trên S3 | 12 |
+| `bao-cao.md` | Lựa chọn tham số, F1 và phân tích kết quả | 8 |
 
----
+## Quy ước bằng chứng
 
-## Ảnh Chụp Màn Hình Tương Ứng Với Rubric
+- Giữ nguyên tiền tố `01` đến `05` và định dạng PNG.
+- Ảnh trình duyệt phải thấy URL, tên repo/bucket và phần nội dung cần chấm.
+- Không che tên job, trạng thái, metrics, commit message hoặc đường dẫn object.
+- Phải che email nếu muốn bảo mật; tuyệt đối không để lộ private key, access key,
+  session token hay nội dung GitHub Secrets.
+- Ảnh Bước 3 phải xuất phát từ event `push`, không dùng `workflow_dispatch`.
+- Báo cáo tối đa một trang A4 và chỉ ghi kết quả đã kiểm chứng.
 
-| Ảnh | Chứng minh hạng mục nào trong rubric | Điểm |
-|---|---|---|
-| `01-mlflow-ui.png` | Bước 1 - MLflow tracking, Bước 1 - Độ đo | 20 |
-| `02-actions-buoc-2.png` | Bước 2 - CI/CD (bốn jobs màu xanh) | 16 |
-| `03-actions-buoc-3.png` | Bước 3 - Tự động hóa | 12 |
-| `04-curl-api.png` | Bước 2 - Serving | 12 |
-| `05-cloud-storage.png` | Bước 2 - DVC | 12 |
-
-Phần `bao-cao.md` chứng minh hạng mục **Bước 1 - Phân tích** (4 điểm) và là nơi bạn giải
-trình khi một ảnh nào đó chưa thể hiện đủ (ví dụ quality gate đã chặn đúng một lần).
-
----
-
-## Quy Ước Chung
-
-- **Định dạng ảnh**: `.png` (ưu tiên) hoặc `.jpg`. Nếu dùng `.jpg`, giữ nguyên phần tên,
-  chỉ đổi đuôi — ví dụ `01-mlflow-ui.jpg`.
-- **Không đổi số thứ tự đầu tên file.** Thứ tự này là thứ tự chấm bài.
-- **Không che thông tin cần chấm**: tên job, trạng thái màu xanh, giá trị `f1_score`,
-  đường dẫn bucket. Được phép che email cá nhân và khóa bí mật.
-- **Cần chụp cả URL trên thanh địa chỉ** với các ảnh chụp từ trình duyệt (MLflow UI,
-  GitHub Actions, Cloud Storage Console) để xác nhận đúng repo/project của bạn.
-- **Tuyệt đối không commit khóa bí mật**: `sa-key.json`, nội dung GitHub Secrets, access
-  key của cloud. Nếu ảnh lỡ chứa các thông tin này, hãy che lại trước khi commit.
-
----
-
-## Ghi Chú Về Kích Thước Repo
-
-Ảnh chụp màn hình được commit trực tiếp vào Git. Giữ mỗi ảnh dưới **1 MB** (chụp vùng cần
-thiết thay vì toàn màn hình 4K, hoặc nén lại trước khi commit) để repo không phình to.
-
-Nếu bạn dùng macOS, có thể nén nhanh bằng lệnh sẵn có:
-
-```bash
-sips -Z 1600 nop-bai/anh-chup-man-hinh/01-mlflow-ui.png
-```
+Chi tiết từng ảnh: [anh-chup-man-hinh/README.md](anh-chup-man-hinh/README.md).
