@@ -34,8 +34,8 @@ Chụp run do commit cập nhật `data/train_batch1.csv.dvc` tự kích hoạt.
 - cả bốn jobs đều xanh;
 - URL repository.
 
-> Ảnh hiện tại là run #5, event `push`, commit `3e7b24b`; cả bốn jobs đều xanh và
-> đáp ứng tiêu chí tự động hóa.
+> Ảnh hiện tại là run #7 (ID `37611571848`), event `push`, commit `a6480b7`; cả
+> bốn jobs đều xanh và đáp ứng tiêu chí tự động hóa.
 
 Tham chiếu: [Bước 3](../../tasks/buoc-3.md).
 

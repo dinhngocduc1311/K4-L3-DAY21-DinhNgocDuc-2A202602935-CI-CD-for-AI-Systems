@@ -17,28 +17,24 @@
 | 2 | 50 | 0.05 | 2 | 0.6051 | 0.8460 |
 | 3 | 200 | 0.1 | 5 | **0.7149** | 0.8740 |
 
-Chọn `n_estimators=200`, `learning_rate=0.1`, `max_depth=5` vì lần 3 có F1 cao
-nhất và vượt Quality Gate `0.65`. Lần 1 có accuracy cao nhất nhưng F1 thấp hơn. Lần
-2 có learning rate thấp, ít cây và cây nông nên chưa bù đủ sai số.
+Chọn `n_estimators=200`, `learning_rate=0.1`, `max_depth=5`: F1 cao nhất và vượt
+gate `0.65`. Lần 1 nhỉnh hơn về accuracy nhưng kém F1; lần 2 có ít cây, tốc độ học
+thấp và cây nông nên chưa bù đủ sai số.
 
 ## 2. Vì sao Quality Gate dùng F1
 
-Chỉ 24,77% dữ liệu ban đầu thuộc lớp thu nhập cao. Mô hình luôn dự đoán thu nhập
-thấp vẫn đạt khoảng 75,23% accuracy nhưng không nhận diện được mẫu dương nào. F1 kết
-hợp precision và recall nên phản ánh cả dự đoán dương sai lẫn mẫu dương bị bỏ sót.
-Pipeline dùng `f1_score(y_eval, preds)` cho `target=1`; không dùng weighted average vì
-lớp đa số sẽ kéo điểm lên, và không dùng macro average vì mục tiêu là đánh giá trực
-tiếp lớp thiểu số.
+Lớp thu nhập cao chỉ chiếm 24,77%; đoán toàn lớp thấp vẫn đạt 75,23% accuracy nhưng
+bỏ sót mọi mẫu dương. F1 kết hợp precision và recall nên phản ánh cả gán nhầm lẫn bỏ
+sót. Pipeline dùng `f1_score(y_eval, preds)` riêng cho `target=1`, không dùng macro hay
+weighted average vì lớp đa số có thể che lấp hiệu quả trên lớp thiểu số.
 
 ## 3. Khó khăn và cách giải quyết
 
 | Khó khăn | Nguyên nhân | Cách giải quyết |
 |---|---|---|
-| MLflow lỗi metadata khi test | Test dùng chung tracking state cục bộ | Dùng SQLite và `tmp_path` riêng cho từng test |
 | GitHub OIDC bị AWS từ chối | Trust policy chưa khớp claim repository/branch | Khóa `aud`, `sub` đúng repo và nhánh `main` |
 | SSH deploy cần mở cổng 22 | IP GitHub runner thay đổi | Chỉ mở `/32` của runner và luôn thu hồi bằng `if: always()` |
 | DVC/CI cần AWS credential | Không được lưu access key dài hạn | Dùng OIDC cho runner và instance role cho EC2 |
-| Push không kích hoạt Actions trên fork | Trạng thái automation của fork chưa được khởi tạo đúng | Reset Actions, bật lại workflow và xác nhận run #5 có event `push` |
 
 ## 4. So sánh Bước 2 và Bước 3
 
@@ -47,7 +43,14 @@ tiếp lớp thiểu số.
 | `f1_score` | 0.7149321267 | 0.7354260090 | +0.0204938823 |
 | `accuracy` | 0.8740 | 0.8820 | +0.0080 |
 
-Sau khi ghép batch 2, F1 tăng khoảng 0,0205 và accuracy tăng 0,0080. Mức tăng nhỏ vì
-hai batch lấy từ cùng nguồn và có phân phối tương tự. Giá trị chính của Bước 3 là xác
-minh dữ liệu được phiên bản hóa bằng DVC, huấn luyện trên GitHub Actions, vượt Quality
-Gate, tải model lên S3 và cập nhật API trên EC2 theo cùng một pipeline tái lập được.
+F1 tăng 0,0205 và accuracy tăng 0,0080. Biên tăng nhỏ vì hai batch cùng nguồn và
+phân phối tương tự. Bước 3 xác nhận chuỗi DVC → GitHub Actions → Quality Gate → S3 →
+EC2 chạy tự động, tái lập được từ một commit dữ liệu.
+
+## 5. Phần Bonus đã thực hiện
+
+- [ ] Bonus 1 — Workflow đã hỗ trợ DagsHub; còn thiếu secret `DAGSHUB_USER_TOKEN` và run từ xa.
+- [x] Bonus 2 — Quét 17 ngưỡng 0,10–0,90; F1 tăng từ 0,7354 lên 0,7537 tại ngưỡng 0,30.
+- [x] Bonus 3 — `detail.txt` chứa matrix, precision/recall từng lớp; ưu tiên giảm false negative thu nhập cao.
+- [x] Bonus 4 — Gate so F1 mới/cũ từ S3; chỉ publish khi `new_f1 >= current_f1`.
+- [x] Bonus 5 — Trước train, tỷ lệ dương 0,2478 lệch dưới 5 điểm %, nên không cảnh báo.

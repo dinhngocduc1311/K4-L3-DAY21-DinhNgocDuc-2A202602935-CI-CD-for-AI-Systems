@@ -21,7 +21,7 @@ nop-bai/
 - [x] Đủ năm tệp ảnh đúng tên; mỗi ảnh nhỏ hơn 1 MB.
 - [x] `bao-cao.md` có đủ bốn mục và không còn placeholder.
 - [x] Báo cáo dùng số liệu thực tế của Bước 1, 2 và 3.
-- [x] `03-actions-buoc-3.png` là run #5, event **push**, đúng commit dữ liệu và bốn jobs xanh.
+- [x] `03-actions-buoc-3.png` là run #7, event **push**, commit `a6480b7` và bốn jobs xanh.
 - [x] Commit và push toàn bộ thay đổi cuối cùng; `vlearn.md` được giữ cục bộ và exclude khỏi Git.
 - [x] Đã mở run bằng Chrome headless không đăng nhập, xác nhận repository và ảnh truy cập công khai.
 - [ ] Dán URL repository vào bài nộp trên <https://vlearn.dev>.
@@ -36,6 +36,14 @@ nop-bai/
 | `04-curl-api.png` | FastAPI trên EC2 trả kết quả | 12 |
 | `05-cloud-storage.png` | DVC objects và model artifact trên S3 | 12 |
 | `bao-cao.md` | Lựa chọn tham số, F1 và phân tích kết quả | 8 |
+
+## Trạng thái Bonus
+
+- [ ] Bonus 1: workflow đã sẵn sàng cho DagsHub; cần thêm `DAGSHUB_USER_TOKEN` để tạo run từ xa.
+- [x] Bonus 2: quét threshold 0,10–0,90 và ghi F1/ngưỡng tối ưu vào report + MLflow.
+- [x] Bonus 3: tạo `detail.txt` với confusion matrix, precision và recall từng lớp.
+- [x] Bonus 4: so F1 với report hiện hành trên S3 trước khi cho phép release.
+- [x] Bonus 5: kiểm tra tỷ lệ lớp dương trước train và cảnh báo khi lệch quá 5 điểm %.
 
 ## Quy ước bằng chứng
 

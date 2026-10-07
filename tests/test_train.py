@@ -56,8 +56,16 @@ def test_report_file_created(tmp_path, monkeypatch):
     assert os.path.exists("outputs/report.json")
     with open("outputs/report.json") as f:
         report = json.load(f)
-    assert "f1_score" in report
-    assert "accuracy" in report
+    assert {
+        "f1_score",
+        "accuracy",
+        "f1_score_default_0_5",
+        "best_threshold",
+        "positive_ratio",
+        "data_drift_warning",
+    } <= report.keys()
+    assert 0.1 <= report["best_threshold"] <= 0.9
+    assert os.path.exists("outputs/detail.txt")
 
 
 def test_model_file_created(tmp_path, monkeypatch):
